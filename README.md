@@ -5,6 +5,10 @@
 
 ## k6 хувилбар
 
+```
+k6 v2.2.0 (commit/devel, go1.26.5, darwin/arm64)
+```
+
 ## Харьцуулсан хүснэгт
 
 | VU  | p95 (ms) | Throughput (req/s) | Error rate |
