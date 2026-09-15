@@ -19,6 +19,15 @@ k6 v2.2.0 (commit/devel, go1.26.5, darwin/arm64)
 
 (эх сурвалж: results/run-05vu.txt, run-30vu.txt, run-100vu.txt)
 
+## Stages туршилт (5→30→100→0 VU ramp)
+
+`scripts/stages.js`-ээр 5→30→100→0 VU-г нэг ажиллуулалтад тасралтгүй
+өсгөж бууруулсан. Үр дүн (results/run-stages.txt): p95=10.28s,
+checks 99.3% амжилттай (1 алдаа гарсан, 144-с). Тогтмол VU-гийн
+тестүүдтэй (p95≈230-270ms) харьцуулахад p95 хамаагүй өндөр гарсан нь
+ramp-up үе шатанд шинэ холболт үүсгэх (connection establishment)
+ачаалал давхцаж, latency огцом нэмэгдэж болохыг харуулж байна.
+
 ## SLO сонголт ба тайлбар
 
 Baseline p95 (1 VU smoke test, results/smoke.txt) = 271.6ms.
@@ -31,7 +40,10 @@ error rate-ийн ерөнхий найдвартай байдлын шалгу�
 ## PASS/FAIL үр дүн
 
 - **PASS** — 30 VU дор: p(95)=234.29ms < 408ms, error rate=0% (results/slo-pass.txt)
-- **FAIL** — 1000 VU дор: p(95)=4.48s ≥ 408ms, error rate=4.52% ≥ 1% (results/slo-fail.txt)
+- **FAIL** — 30 VU дор, threshold-ыг зориудаар хатуу (`p(95)<50`) болгосноор:
+  p(95)=795.26ms ≥ 50ms тул FAIL, харин error rate=0% (server хэвийн ажилласан,
+  зөвхөн threshold өөрөө хатуу тул FAIL гарсан — серверт хэт ачаалал өгөхгүйгээр
+  FAIL-ыг харуулах зөв арга) (results/slo-fail.txt)
 
 ## Дүгнэлт
 
